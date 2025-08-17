@@ -10,21 +10,23 @@ go get github.com/clipperhouse/ntime
 import "github.com/clipperhouse/ntime"
 
 type MyThing struct {
-	Time ntime.Time
+    Time ntime.Time
 }
 
 thing := MyThing{
     Time: ntime.Now(),
 }
 
-// time passes...
+// Time passes...
+time.Sleep(100 * time.Millisecond)
 
 now := ntime.Now()
 age := now.Sub(thing.Time)
 
-if age > time.Duration(30*time.Second) {
-    //... do a thing to the thing
+if age > 100*time.Millisecond {
+    //... do a thing with the thing
 }
+
 ```
 
 [![Tests](https://github.com/clipperhouse/ntime/actions/workflows/tests.yml/badge.svg)](https://github.com/clipperhouse/ntime/actions/workflows/tests.yml)
