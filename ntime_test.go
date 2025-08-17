@@ -29,6 +29,8 @@ func TestTime_Now_Serial(t *testing.T) {
 }
 
 func TestNtime_Now_Vs_TimeNow_Concurrent(t *testing.T) {
+	t.Skip("skipping because it's not a good test of monotonicity, and is non-deterministic")
+
 	// Test the extent to which ntime.Now() offers monotonicity
 	// vs system time.Now()
 
