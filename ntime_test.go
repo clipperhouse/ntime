@@ -12,19 +12,34 @@ import (
 // against system clock changes. These tests are something I suppose.
 // https://chatgpt.com/share/689f6a5d-2f64-8007-b1cc-3bdf10cfee20
 
-func TestTime_Now_Serial(t *testing.T) {
+func TestNTime_Now_Vs_TimeNow_Serial(t *testing.T) {
 	t.Parallel()
 
-	// Test that consecutive calls to Now() return non-decreasing
+	// Test that consecutive calls to ntime.Now() return non-decreasing
 	// values. I believe that returing the same time is acceptable
 	// for a monotonic clock, for our purposes.
-	prev := Now()
-	for i := range 10000 {
-		current := Now()
-		require.Greater(t, current, prev,
-			"Time %d (%d) should not be less than time %d (%d)",
-			i, current, i-1, prev)
-		prev = current
+	{
+		prev := Now()
+		for i := range 10000 {
+			current := Now()
+			require.GreaterOrEqual(t, current, prev,
+				"Time %d (%d) should not be less than time %d (%d)",
+				i, current, i-1, prev)
+			prev = current
+		}
+	}
+
+	// For comparison, test that consecutive calls to time.Now()
+	// do the same.
+	{
+		prev := time.Now()
+		for i := range 10000 {
+			current := time.Now()
+			require.GreaterOrEqual(t, current, prev,
+				"Time %d (%v) should not be less than time %d (%v)",
+				i, current, i-1, prev)
+			prev = current
+		}
 	}
 }
 
