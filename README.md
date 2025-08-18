@@ -36,7 +36,7 @@ if age > 100*time.Millisecond {
 
 The Go stdlib `time` package offers [monotonic time](https://pkg.go.dev/time#hdr-Monotonic_Clocks), which is a nice bit of robustness against a changing system clock. You should usually just use that.
 
-If you're an optimizer like me, and are [building something](https://github.com/clipperhouse/rate) that primarily cares about _relative_ time between two operations, then `ntime.Time` offers an 8-byte type, vs the 24-byte `time.Time`.
+If you're an optimizer like me, and are [building something](https://github.com/clipperhouse/rate) that primarily cares about _relative_ time between two operations, then `ntime.Time` offers an 8-byte type, vs the 24-byte `time.Time`, while still offering monotonicity.
 
 ntime also offers many of the convenience methods from the stdlib `time`, such as `Sub`, `After`, etc.
 
