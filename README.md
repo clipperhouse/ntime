@@ -48,7 +48,7 @@ I naïvely began with the simple idea of using `Nanoseconds()` / `UnixNano()` fr
 
 But then I had the good sense to wonder if they are monotonic in the way that `time.Now()` is. Turns out [they are not](https://chatgpt.com/share/689f6a5d-2f64-8007-b1cc-3bdf10cfee20).
 
-A changing systems clock is a class of bug that is unlikely, until it isn't, and I would like to eliminate that class of surprise.
+A changing system clock is unlikely, until it isn't, and I would like to eliminate that class of surprise.
 
 One can get both (monotonic + integer) by capturing an epoch via `time.Now()` at system start, and then using `time.Since()`. This package makes that convenient.
 
