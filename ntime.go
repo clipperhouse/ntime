@@ -58,6 +58,10 @@ func (t Time) Add(d time.Duration) Time {
 	return t + Time(d.Nanoseconds())
 }
 
+func Since(t Time) time.Duration {
+	return Now().Sub(t)
+}
+
 func (t Time) Sub(u Time) time.Duration {
 	return time.Duration(t - u)
 }

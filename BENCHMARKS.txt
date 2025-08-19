@@ -1,0 +1,26 @@
+goos: darwin
+goarch: arm64
+pkg: github.com/clipperhouse/ntime
+cpu: Apple M2
+Benchmark_Now/ntime/Serial-8  	73193888	        15.91 ns/op	       0 B/op	       0 allocs/op
+Benchmark_Now/ntime/Parallel-8         	368419160	         3.334 ns/op	       0 B/op	       0 allocs/op
+Benchmark_Now/time/Serial-8            	37099489	        32.25 ns/op	       0 B/op	       0 allocs/op
+Benchmark_Now/time/Parallel-8          	100000000	        10.86 ns/op	       0 B/op	       0 allocs/op
+Benchmark_Since/ntime/Serial-8         	75848554	        15.90 ns/op	       0 B/op	       0 allocs/op
+Benchmark_Since/ntime/Parallel-8       	336293926	         3.425 ns/op	       0 B/op	       0 allocs/op
+Benchmark_Since/time/Serial-8          	75573294	        15.50 ns/op	       0 B/op	       0 allocs/op
+Benchmark_Since/time/Parallel-8        	348560336	         2.954 ns/op	       0 B/op	       0 allocs/op
+Benchmark_After/ntime/Serial-8         	618186135	         1.898 ns/op	       0 B/op	       0 allocs/op
+Benchmark_After/ntime/Parallel-8       	1000000000	         0.2988 ns/op	       0 B/op	       0 allocs/op
+Benchmark_After/time/Serial-8          	622120801	         1.920 ns/op	       0 B/op	       0 allocs/op
+Benchmark_After/time/Parallel-8        	1000000000	         0.3602 ns/op	       0 B/op	       0 allocs/op
+Benchmark_Add/ntime/Serial-8           	632833652	         1.894 ns/op	       0 B/op	       0 allocs/op
+Benchmark_Add/ntime/Parallel-8         	1000000000	         0.3067 ns/op	       0 B/op	       0 allocs/op
+Benchmark_Add/time/Serial-8            	334739587	         3.644 ns/op	       0 B/op	       0 allocs/op
+Benchmark_Add/time/Parallel-8          	1000000000	         0.6965 ns/op	       0 B/op	       0 allocs/op
+Benchmark_Sub/ntime/Serial-8           	627657327	         1.916 ns/op	       0 B/op	       0 allocs/op
+Benchmark_Sub/ntime/Parallel-8         	1000000000	         0.3225 ns/op	       0 B/op	       0 allocs/op
+Benchmark_Sub/time/Serial-8            	610631863	         1.967 ns/op	       0 B/op	       0 allocs/op
+Benchmark_Sub/time/Parallel-8          	1000000000	         0.3756 ns/op	       0 B/op	       0 allocs/op
+PASS
+ok  	github.com/clipperhouse/ntime	20.396s

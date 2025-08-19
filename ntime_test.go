@@ -183,36 +183,198 @@ func TestTime_Before(t *testing.T) {
 	require.False(t, later.Before(now), "Before: later time should not be before earlier time")
 }
 
-func BenchmarkNow(b *testing.B) {
-	for b.Loop() {
-		Now()
-	}
-}
-
-func BenchmarkNow_Parallel(b *testing.B) {
-	b.ResetTimer()
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			Now()
-		}
+func Benchmark_Now(b *testing.B) {
+	b.Run("ntime", func(b *testing.B) {
+		b.Run("Serial", func(b *testing.B) {
+			b.ResetTimer()
+			for b.Loop() {
+				_ = Now()
+			}
+		})
+		b.Run("Parallel", func(b *testing.B) {
+			b.RunParallel(func(pb *testing.PB) {
+				for pb.Next() {
+					_ = Now()
+				}
+			})
+		})
+	})
+	b.Run("time", func(b *testing.B) {
+		b.Run("Serial", func(b *testing.B) {
+			b.ResetTimer()
+			for b.Loop() {
+				_ = time.Now()
+			}
+		})
+		b.Run("Parallel", func(b *testing.B) {
+			b.RunParallel(func(pb *testing.PB) {
+				for pb.Next() {
+					_ = time.Now()
+				}
+			})
+		})
 	})
 }
 
-func BenchmarkTime_Add(b *testing.B) {
-	now := Now()
-	duration := time.Second
-
-	for b.Loop() {
-		now.Add(duration)
-	}
+func Benchmark_Since(b *testing.B) {
+	b.Run("ntime", func(b *testing.B) {
+		b.Run("Serial", func(b *testing.B) {
+			earlier := Now()
+			b.ResetTimer()
+			for b.Loop() {
+				_ = Since(earlier)
+			}
+		})
+		b.Run("Parallel", func(b *testing.B) {
+			earlier := Now()
+			b.RunParallel(func(pb *testing.PB) {
+				for pb.Next() {
+					_ = Since(earlier)
+				}
+			})
+		})
+	})
+	b.Run("time", func(b *testing.B) {
+		b.Run("Serial", func(b *testing.B) {
+			earlier := time.Now()
+			b.ResetTimer()
+			for b.Loop() {
+				_ = time.Since(earlier)
+			}
+		})
+		b.Run("Parallel", func(b *testing.B) {
+			earlier := time.Now()
+			b.RunParallel(func(pb *testing.PB) {
+				for pb.Next() {
+					_ = time.Since(earlier)
+				}
+			})
+		})
+	})
 }
 
-func BenchmarkTime_Sub(b *testing.B) {
-	now := Now()
-	time.Sleep(time.Microsecond)
-	later := Now()
+func Benchmark_After(b *testing.B) {
+	b.Run("ntime", func(b *testing.B) {
+		b.Run("Serial", func(b *testing.B) {
+			b.ResetTimer()
+			now := Now()
+			for b.Loop() {
+				_ = now.Sub(now)
+			}
+		})
+		b.Run("Parallel", func(b *testing.B) {
+			now := Now()
+			b.RunParallel(func(pb *testing.PB) {
+				for pb.Next() {
+					_ = now.Sub(now)
+				}
+			})
+		})
+	})
+	b.Run("time", func(b *testing.B) {
+		b.Run("Serial", func(b *testing.B) {
+			b.ResetTimer()
+			now := time.Now()
+			for b.Loop() {
+				_ = now.Sub(now)
+			}
+		})
+		b.Run("Parallel", func(b *testing.B) {
+			now := time.Now()
+			b.RunParallel(func(pb *testing.PB) {
+				for pb.Next() {
+					_ = now.Sub(now)
+				}
+			})
+		})
+	})
+}
+func Benchmark_Add(b *testing.B) {
+	b.Run("ntime", func(b *testing.B) {
+		b.Run("Serial", func(b *testing.B) {
+			now := Now()
+			duration := time.Second
 
-	for b.Loop() {
-		later.Sub(now)
-	}
+			for b.Loop() {
+				_ = now.Add(duration)
+			}
+		})
+		b.Run("Parallel", func(b *testing.B) {
+			now := Now()
+			duration := time.Second
+
+			b.RunParallel(func(pb *testing.PB) {
+				for pb.Next() {
+					_ = now.Add(duration)
+				}
+			})
+		})
+	})
+	b.Run("time", func(b *testing.B) {
+		b.Run("Serial", func(b *testing.B) {
+			now := time.Now()
+			duration := time.Second
+
+			for b.Loop() {
+				_ = now.Add(duration)
+			}
+		})
+		b.Run("Parallel", func(b *testing.B) {
+			now := time.Now()
+			duration := time.Second
+
+			b.RunParallel(func(pb *testing.PB) {
+				for pb.Next() {
+					_ = now.Add(duration)
+				}
+			})
+		})
+	})
+}
+
+func Benchmark_Sub(b *testing.B) {
+	b.Run("ntime", func(b *testing.B) {
+		b.Run("Serial", func(b *testing.B) {
+			now := Now()
+			time.Sleep(time.Microsecond)
+			later := Now()
+
+			for b.Loop() {
+				_ = later.Sub(now)
+			}
+		})
+		b.Run("Parallel", func(b *testing.B) {
+			now := Now()
+			time.Sleep(time.Microsecond)
+			later := Now()
+
+			b.RunParallel(func(pb *testing.PB) {
+				for pb.Next() {
+					_ = later.Sub(now)
+				}
+			})
+		})
+	})
+	b.Run("time", func(b *testing.B) {
+		b.Run("Serial", func(b *testing.B) {
+			now := time.Now()
+			time.Sleep(time.Microsecond)
+			later := time.Now()
+
+			for b.Loop() {
+				_ = later.Sub(now)
+			}
+		})
+		b.Run("Parallel", func(b *testing.B) {
+			now := time.Now()
+			time.Sleep(time.Microsecond)
+			later := time.Now()
+
+			b.RunParallel(func(pb *testing.PB) {
+				for pb.Next() {
+					_ = later.Sub(now)
+				}
+			})
+		})
+	})
 }
