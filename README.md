@@ -40,7 +40,7 @@ If you're an optimizer like me, and are [building something](https://github.com/
 
 ntime also offers many of the convenience methods from the stdlib `time`, such as `Sub`, `After`, etc.
 
-`ntime.Time` is a relative time against an arbitrary constant epoch, and is meant only for comparisons. Do not mistake it for system ("wall") time.
+⚠️ `ntime.Time` is a relative time against an arbitrary constant epoch, and is meant only for comparisons (i.e. durations). Do not mistake it for system ("wall") time. It is only useful in-process; multiple processes will have different epochs. There is a `ToTime()` method to convert to system time, which should be accurate in the absence of clock skew.
 
 ### Implementation
 
@@ -50,7 +50,7 @@ But then I had the good sense to wonder if they are monotonic in the way that `t
 
 A changing system clock is unlikely, until it isn't, and I would like to eliminate that class of surprise.
 
-One can get both (monotonic + integer) by capturing an epoch via `time.Now()` at system start, and then using `time.Since()`. This package makes that convenient.
+One can get both (monotonic + integer) by capturing an epoch via `time.Now()` at process start, and then using `time.Since()`. This package makes that convenient.
 
 ### Performance
 
